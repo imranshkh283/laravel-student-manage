@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\Students;
+use App\Models\Classess as ClassDivision;
 
 class AdminController extends Controller
 {
@@ -24,10 +25,10 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = User::count();
-
         $data = [
-            'users' => $users,
+            'users' => User::count(),
+            'students' => Students::count(),
+            'classes' => ClassDivision::count(),
         ];
 
         return view('dashboard', compact('data'));
