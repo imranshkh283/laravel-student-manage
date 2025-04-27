@@ -53,7 +53,7 @@
                     <tr>
                         <td>{{ $student->id }}</td>
                         <td>{{ $student->name }}</td>
-                        <td>{{ $student->classModel->class_name }}</td>
+                        <td>{{ $student->classModel->class_name . ' / ' . $student->classModel->division }}</td>
                         <td>{{ $student->roll_number }}</td>
                         <td>
                             <a href="{{ route('student.edit', $student->id) }}" class="btn btn-primary btn-sm">Edit</a>

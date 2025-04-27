@@ -73,6 +73,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('students') }}">List</a>
                         <a class="collapse-item" href="{{ route('student.create') }}">Add</a>
+                        <a class="collapse-item" href="{{ route('student.import') }}">Import</a>
                     </div>
                 </div>
             </li>
