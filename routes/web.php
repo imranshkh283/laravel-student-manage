@@ -21,6 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/admin', 'AdminController@index')->name('admin');
+Route::get('/admin/show-chart', 'AdminController@showChart')->name('show-chart');
 
 Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::put('/profile', 'ProfileController@update')->name('profile.update');

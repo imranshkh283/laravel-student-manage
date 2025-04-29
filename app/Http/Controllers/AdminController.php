@@ -33,4 +33,17 @@ class AdminController extends Controller
 
         return view('dashboard', compact('data'));
     }
+
+    public function showChart()
+    {
+        $classes = ClassDivision::withCount('students')->get();
+
+        $grouped = [];
+
+        foreach ($classes as $class) {
+            $grouped[$class->class_name][$class->division] = $class->students_count;
+        }
+
+        return response()->json($grouped);
+    }
 }
