@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Student\StudentServiceInterface;
 use App\Models\Classess as ClassDivision;
-use App\Models\Students;
 
 use App\Http\Requests\StoreStudentRequest;
-use Illuminate\Contracts\Cache\Store;
+use App\Jobs\ImportStudentsFromCsv;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class StudentsController extends Controller
 {
@@ -29,7 +30,7 @@ class StudentsController extends Controller
 
     public function create()
     {
-        $classDivisions = ClassDivision::getNameAndDivision();
+        $classDivisions = Cache::get('classes');
 
         return view('student.create', compact('classDivisions'));
     }
@@ -46,7 +47,7 @@ class StudentsController extends Controller
     {
         $student = $this->studentService->getById($request->id);
 
-        $classDivisions = ClassDivision::getNameAndDivision();
+        $classDivisions = Cache::get('classes');
 
         return view('student.edit', compact('student', 'classDivisions'));
     }
@@ -63,5 +64,26 @@ class StudentsController extends Controller
         $this->studentService->delete($request->id);
 
         return redirect()->route('students')->withDanger('Student deleted successfully.');
+    }
+
+    public function import()
+    {
+        return view('student.import');
+    }
+
+    public function csvImport(Request $request)
+    {
+        $file = $request->file('student_import');
+
+        $filePath = $file->storeAs('uploads', $file->getClientOriginalName());
+
+        ImportStudentsFromCsv::dispatch($filePath);
+
+        return redirect()->route('students')->withSuccess('Students imported successfully.');
+    }
+
+    public function studentCSVSampleDownload()
+    {
+        return response()->download(storage_path('app/student.csv'), 'student.csv');
     }
 }

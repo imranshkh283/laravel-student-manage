@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Students;
 
 class Classess extends Model
 {
@@ -16,7 +17,7 @@ class Classess extends Model
 
     public function students()
     {
-        return $this->hasMany(Student::class, 'class_id');
+        return $this->hasMany(Students::class, 'class_id');
     }
 
     public static function getNameAndDivision()

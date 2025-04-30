@@ -2,8 +2,6 @@
 
 namespace App\Student;
 
-use App\Models\Students;
-
 interface StudentServiceInterface
 {
     public function create(array $data);

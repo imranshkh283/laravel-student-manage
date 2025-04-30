@@ -21,6 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/admin', 'AdminController@index')->name('admin');
+Route::get('/admin/show-chart', 'AdminController@showChart')->name('show-chart');
 
 Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::put('/profile', 'ProfileController@update')->name('profile.update');
@@ -34,6 +35,9 @@ Route::middleware('admin')->group(function () {
     Route::get('/students/edit/{id}', 'StudentsController@edit')->name('student.edit');
     Route::put('/students/update', 'StudentsController@update')->name('student.update');
     Route::delete('/students/delete/{id}', 'StudentsController@delete')->name('student.delete');
+    Route::get('/students/import', 'StudentsController@import')->name('student.import');
+    Route::get('/students/csvSample', 'StudentsController@studentCSVSampleDownload')->name('student.csvSample');
+    Route::post('/students/import', 'StudentsController@csvImport')->name('student.csvImport');
 });
 
 // Route::get('/students/edit/{id}', 'StudentsController@edit')->name('student.edit')->middleware('admin');
