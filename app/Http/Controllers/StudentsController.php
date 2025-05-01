@@ -8,6 +8,7 @@ use App\Models\Classess as ClassDivision;
 
 use App\Http\Requests\StoreStudentRequest;
 use App\Jobs\ImportStudentsFromCsv;
+use App\Models\Classess;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -30,7 +31,7 @@ class StudentsController extends Controller
 
     public function create()
     {
-        $classDivisions = Cache::get('classes');
+        $classDivisions = Cache::get('classes') ?? Classess::getNameAndDivision();
 
         return view('student.create', compact('classDivisions'));
     }
