@@ -38,8 +38,9 @@ Route::middleware('admin')->group(function () {
     Route::get('/students/import', 'StudentsController@import')->name('student.import');
     Route::get('/students/csvSample', 'StudentsController@studentCSVSampleDownload')->name('student.csvSample');
     Route::post('/students/import', 'StudentsController@csvImport')->name('student.csvImport');
-});
 
-// Route::get('/students/edit/{id}', 'StudentsController@edit')->name('student.edit')->middleware('admin');
-// Route::put('/students/update', 'StudentsController@update')->name('student.update')->middleware('admin');
-// Route::delete('/students/delete/{id}', 'StudentsController@delete')->name('student.delete')->middleware('admin');
+    // TODO: separate exams api
+    Route::get('/admin/api_config', 'ExamsController@index')->name('api_config');
+    Route::get('/admin/load_quiz', 'ExamsController@loadQuiz')->name('load_quiz');
+    Route::get('/admin/quiz_page', 'ExamsController@quizPage')->name('quiz_page');
+});

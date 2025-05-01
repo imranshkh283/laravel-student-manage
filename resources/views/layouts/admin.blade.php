@@ -65,15 +65,27 @@
             <!-- Nav Item - Students -->
 
             <li class="nav-item {{ Nav::isRoute('students') }}">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudents" aria-expanded="true" aria-controls="collapseStudents">
                     <i class="fas fa-fw fa-users"></i>
                     <span>{{ __('Student') }}</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                <div id="collapseStudents" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('students') }}">List</a>
                         <a class="collapse-item" href="{{ route('student.create') }}">Add</a>
                         <a class="collapse-item" href="{{ route('student.import') }}">Import</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item {{ Nav::isRoute('api_config') }}">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseExams" aria-expanded="true" aria-controls="collapseExams">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>{{ __('Exam') }}</span>
+                </a>
+                <div id="collapseExams" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('api_config') }}">API Config</a>
                     </div>
                 </div>
             </li>
@@ -226,6 +238,9 @@
             $('#studentTable').DataTable();
         });
     </script>
+    @endif
+    @if (Route::has('api_config'))
+    <script src="{{ asset('js\app-exam.js') }}"></script>
     @endif
 </body>
 
