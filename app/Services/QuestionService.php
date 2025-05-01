@@ -15,23 +15,18 @@ class QuestionService
 
     public function getAll()
     {
-        $questions = [];
+        return $this->questionRepository->getAll()->map(function ($question) {
+            $data = json_decode($question->data, true);
 
-        $question = $this->questionRepository->getAll();
-
-        foreach ($question as $q) {
-            $data = json_decode($q->data, true);
-            $questions[] = [
-                'id' => $q->id,
-                'question_id' => $q->question_id,
-                'category' => $q->category,
-                'difficulty' => $q->difficulty,
+            return [
+                'id' => $question->id,
+                'question_id' => $question->question_id,
+                'category' => $question->category,
+                'difficulty' => $question->difficulty,
                 'question' => $data['question'],
                 'answers' => $data['answers'],
                 'multiple_correct_answers' => $data['multiple_correct_answers'],
             ];
-        }
-
-        return $questions;
+        })->toArray();
     }
 }

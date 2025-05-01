@@ -34,8 +34,6 @@ class ExamsController extends Controller
     {
         $questions = $this->questionService->getAll();
 
-        // dd($questions);
-
         return view('exams.quiz', compact('questions'));
     }
 }

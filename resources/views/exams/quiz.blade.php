@@ -3,7 +3,7 @@
 @section('main-content')
 
 <!-- Page Heading -->
-<h1 class="h3 mb-4 text-gray-800">{{ __('Generate Api Config') }}</h1>
+<h1 class="h3 mb-4 text-gray-800">{{ __('U have completed all the questions') }}</h1>
 
 @if (session('success'))
 <div class="alert alert-success border-left-success alert-dismissible fade show" role="alert">
@@ -21,7 +21,7 @@
 @endif
 
 <div class="row">
-    <div class="container mt-4">
+    <div class="container">
         <!-- Question Card -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -55,8 +55,10 @@
                 <!-- End Loop for Questions -->
 
                 <!-- Submit Button (once at the bottom of the form) -->
-                <div class="mt-4 text-center">
-                    <button type="submit" class="btn btn-primary">Submit Answer</button>
+                <div class="card-body">
+                    <div class="mt-4 text-center">
+                        <button type="submit" class="btn btn-primary">Submit Answer</button>
+                    </div>
                 </div>
             </form>
         </div>
