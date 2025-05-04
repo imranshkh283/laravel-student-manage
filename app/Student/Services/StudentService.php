@@ -19,7 +19,7 @@ class StudentService implements StudentServiceInterface
 
     public function getAll(int $perPage = 15)
     {
-        return Students::with('classModel')->paginate($perPage);
+        return Students::with('classModel')->orderBy('id', 'desc')->paginate($perPage);
     }
 
     public function update(array $data, int $id)

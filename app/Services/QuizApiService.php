@@ -5,7 +5,8 @@ namespace App\Services;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use App\Models\Questions;
-use Illuminate\Container\Attributes\Auth;
+use App\Models\questions_session as QuestionsSession;
+use Illuminate\Support\Facades\DB;
 
 class QuizApiService
 {
@@ -38,20 +39,31 @@ class QuizApiService
 
         $questions = $this->fetchQuestions($limit = 10, $category = 'Linux', $difficulty = 'easy');
 
-        $arr_questions = [];
 
         $userId = auth()->user()->id;
 
-        foreach ($questions as $question) {
-            $arr_questions[] = [
-                'user_id' => $userId,
-                'question_id' => $question['id'],
-                'data' => json_encode($question),
-                'category' => $question['category'],
-                'difficulty' => $question['difficulty'],
-            ];
-        }
+        DB::transaction(function () use ($questions, $userId) {
 
-        Questions::insert($arr_questions);
+            QuestionsSession::create([
+                'user_id' => $userId,
+                'started_at' => now(),
+                'status' => 'pending',
+            ]);
+
+            $arr_questions = [];
+            foreach ($questions as $question) {
+                $arr_questions[] = [
+                    'user_id' => $userId,
+                    'question_id' => $question['id'],
+                    'data' => json_encode($question),
+                    'category' => $question['category'],
+                    'difficulty' => $question['difficulty'],
+                    'status' => '0',
+                    'created_at' => now(),
+                ];
+            }
+
+            Questions::insert($arr_questions);
+        });
     }
 }

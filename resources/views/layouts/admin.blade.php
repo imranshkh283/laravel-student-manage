@@ -226,16 +226,21 @@
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
-    @if (Route::has('admin'))
+    @if (request()->is('admin'))
     <script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>
     <script src="{{ asset('vendor/chart.js/bar-chart.js') }}"></script>
     @endif
-    @if (Route::has('students'))
+
+    @if (request()->is('students'))
     <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#studentTable').DataTable();
+            $('#studentTable').DataTable({
+                'order': [
+                    [0, 'desc']
+                ],
+            });
         });
     </script>
     @endif

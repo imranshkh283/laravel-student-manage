@@ -29,7 +29,7 @@
             </div>
 
             <!-- Start Loop for Questions -->
-            <form action="" method="POST">
+            <form action="{{ route('admin.submit_answer') }}" method="POST">
                 @csrf
                 @foreach($questions as $question)
                 <div class="card-body">
@@ -43,7 +43,10 @@
                     @foreach($question['answers'] as $key => $answer)
                     @if($answer) <!-- Only display non-null answers -->
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="answer[{{ $question['id'] }}]" id="{{ $key }}" value="{{ $key }}">
+                        <input class="form-check-input"
+                            type="radio" name="answer[{{ $question['id'] }}]"
+                            id="answer_{{ $question['id'] }}_{{ $key }}"
+                            value="{{ $key }}">
                         <label class="form-check-label" for="{{ $key }}">
                             {{ $answer }}
                         </label>
@@ -57,7 +60,7 @@
                 <!-- Submit Button (once at the bottom of the form) -->
                 <div class="card-body">
                     <div class="mt-4 text-center">
-                        <button type="submit" class="btn btn-primary">Submit Answer</button>
+                        <button type="submit" class="btn btn-primary" name="submit">Submit Answer</button>
                     </div>
                 </div>
             </form>

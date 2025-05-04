@@ -2,25 +2,6 @@
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
-document.getElementById('stackedChart').onclick = function (evt) {
-    const chart = window.stackedChart;
-    const points = chart.getElementsAtEventForMode(evt, 'nearest', { intersect: true }, true);
-    if (!points.length) return;
-
-    const datasetIndex = points[0].datasetIndex;
-    const index = points[0].index;
-
-    const clickedDivision = chart.data.datasets[datasetIndex].label.replace('Division ', '');
-    const clickedClass = chart.data.labels[index];
-
-    // fetch(`/students/details?class=${encodeURIComponent(clickedClass)}&division=${encodeURIComponent(clickedDivision)}`)
-    //     .then(res => res.json())
-    //     .then(students => {
-    //         showDrillDownChart(students, clickedClass, clickedDivision);
-    //     });
-};
-
-
 async function fetchDashBoardGraphData() {
 
     try {

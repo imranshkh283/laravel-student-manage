@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ExamsController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,7 +42,10 @@ Route::middleware('admin')->group(function () {
     Route::post('/students/import', 'StudentsController@csvImport')->name('student.csvImport');
 
     // TODO: separate exams api
-    Route::get('/admin/api_config', 'ExamsController@index')->name('api_config');
     Route::get('/admin/load_quiz', 'ExamsController@loadQuiz')->name('load_quiz');
+    Route::get('/admin/api_config', 'ExamsController@index')->middleware('examSession')->name('api_config');
     Route::get('/admin/quiz_page', 'ExamsController@quizPage')->name('quiz_page');
+    Route::post('/admin/submit_answer', 'ExamsController@submit_answer')->name('admin.submit_answer');
+
+    // Route::post('/admin/submit_answer', [ExamsController::class, 'submit_answer'])->name("admin.submit_answer");
 });
