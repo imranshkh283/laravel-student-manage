@@ -13,4 +13,9 @@ class QuestionRepository
             'user_id' => auth()->user()->id,
         ])->get();
     }
+
+    public function updateQuestionStatus(int $questionId, int $status)
+    {
+        Questions::where('id', $questionId)->update(['status' => $status]);
+    }
 }

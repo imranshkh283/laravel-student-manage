@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Config;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,5 +23,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrap();
+
+        Collection::macro('getGrade', function ($level, $mark) {
+            $grades = collect(Config::get("grade.$level", []))
+                ->sortKeysDesc();
+
+            return $grades->first(function ($value, $key) use ($mark) {
+                return $mark >= (int) $key;
+            });
+        });
     }
 }

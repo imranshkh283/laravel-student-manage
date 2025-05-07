@@ -20,8 +20,6 @@ class ExamSession
             return redirect()->route('login');
         }
 
-        // Prevent redirect loop
-        // dd($request->routeIs('quiz_page'), 'middleware');
         if (!$request->routeIs('quiz_page')) {
             $examSession = QuestionsSession::where('user_id', $request->user()->id)
                 ->where('status', 'pending')

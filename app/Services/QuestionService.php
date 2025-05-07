@@ -16,7 +16,8 @@ class QuestionService
     public function getAll()
     {
         return $this->questionRepository->getAll()->map(function ($question) {
-            $data = json_decode($question->data, true);
+
+            $data = $question->data;
 
             return [
                 'id' => $question->id,
@@ -28,5 +29,10 @@ class QuestionService
                 'multiple_correct_answers' => $data['multiple_correct_answers'],
             ];
         })->toArray();
+    }
+
+    public function updateQuestionStatus(int $questionId, int $status)
+    {
+        $this->questionRepository->updateQuestionStatus($questionId, $status);
     }
 }
